@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palestine Cinema Days - Skien</title>
+
+    <!-- Google Fonts -->
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@300;400;500;700&family=Inconsolata:wght@500&family=Alexandria:wght@400;700&display=swap");
+    </style>
+
+    <style>
+        /* --- RESET & VARIABLES --- */
+        :root {
+            --color-bg: #ffffff;
+            --color-text: #1a1a1a;
+            --color-primary: #ffca00; /* Gold (Dominant) */
+            --color-secondary: #ef280b; /* Red (Accent) */
+            --color-muted: #666666;
+            --font-heading: 'Barlow Condensed', sans-serif;
+            --font-body: 'Barlow', sans-serif;
+            --font-tech: 'Inconsolata', monospace;
+            --font-ar: 'Alexandria', sans-serif;
+            --max-width: 1100px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3 {
+            font-family: var(--font-heading);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 900;
+        }
+
+        h1 { font-size: clamp(2rem, 5vw, 4rem); line-height: 1.1; margin-bottom: 0.5rem; }
+        
+        h2 {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            margin-bottom: 1.5rem;
+            border-left: 5px solid var(--color-primary); /* Gold Border */
+            padding-left: 1rem;
+            display: inline-block;
+        }
+
+        p { margin-bottom: 1rem; font-size: 1.1rem; }
+
+        .tech-text {
+            font-family: var(--font-tech);
+            font-weight: 500;
+            color: var(--color-muted);
+        }
+
+        /* --- LAYOUT UTILITIES --- */
+        .container {
+            width: 100%;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 4rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* --- VIDEO (CLEAN EMBED) --- */
+        .video-container {
+            width: 100%;
+            background: #000;
+            line-height: 0;
+        }
+
+        /* --- TITLE BLOCK --- */
+        .title-block {
+            text-align: center;
+            padding: 3rem 20px;
+        }
+
+        .hero-title {
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-tech);
+            color: var(--color-muted);
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+        }
+
+        /* --- DATE & LOCATION BAR --- */
+        .details-bar {
+            background-color: var(--color-primary); /* Gold Background */
+            color: #1a1a1a; /* Dark text for contrast on gold */
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .details-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            font-family: var(--font-tech);
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        /* --- PROGRAM LIST (QUICK) --- */
+        .program-list {
+            list-style: none;
+            margin-top: 2rem;
+        }
+
+        .program-item {
+            display: flex;
+            flex-direction: column;
+            border-bottom: 1px solid #ddd;
+            padding: 1.5rem 0;
+            transition: background 0.3s;
+        }
+
+        .program-item:hover {
+            background-color: #fcfcfc;
+        }
+
+        .program-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .film-time {
+            font-family: var(--font-tech);
+            color: var(--color-secondary); /* Red Time */
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .film-name {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 700;
+            flex-grow: 1;
+        }
+
+        .film-location-link {
+            font-family: var(--font-body);
+            color: var(--color-muted);
+            font-style: italic;
+            text-decoration: underline;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .film-location-link:hover {
+            color: var(--color-secondary);
+        }
+
+        /* --- FEATURE IMAGE --- */
+        .feature-image {
+            width: 100%;
+            max-width: 720px;
+            height: auto;
+            display: block;
+            margin: 0 auto 2.5rem auto;
+            border-radius: 6px;
+        }
+
+        /* --- ABOUT SECTION --- */
+        .about-content {
+            max-width: 760px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        /* --- LOCATIONS SECTION --- */
+        .map-wrapper {
+            width: 100%;
+            height: 450px;
+            margin-bottom: 3rem;
+            border: 4px solid var(--color-primary);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .map-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .location-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .location-card {
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .location-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background-color: #eee;
+        }
+
+        .location-details {
+            padding: 1.5rem;
+        }
+
+        .location-name {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            color: var(--color-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .location-address {
+            font-family: var(--font-tech);
+            color: var(--color-muted);
+            font-size: 1rem;
+        }
+
+        /* --- DETAILED PROGRAMME (CARDS) --- */
+        .programme-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+
+        .film-card {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .film-thumb {
+            width: 100%;
+            height: auto;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            background-color: #eee;
+        }
+
+        .film-info h3 {
+            font-size: 1.8rem;
+            color: var(--color-secondary);
+            margin-bottom: 0.2rem;
+        }
+
+        .film-meta {
+            font-family: var(--font-tech);
+            color: var(--color-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .trailer-link {
+            display: inline-block;
+            color: var(--color-secondary);
+            font-weight: bold;
+            text-decoration: none;
+            border-bottom: 2px solid var(--color-secondary);
+            margin-bottom: 1rem;
+            transition: all 0.2s;
+        }
+
+        .trailer-link:hover {
+            background-color: var(--color-secondary);
+            color: white;
+        }
+
+        .film-synopsis {
+            font-size: 1.05rem;
+            color: #333;
+        }
+
+        /* --- PLACEHOLDER --- */
+        .placeholder-section {
+            background-color: #fafafa;
+            padding: 3rem 2rem;
+            text-align: center;
+            border-radius: 8px;
+            margin-top: 2rem;
+            border: 2px dashed var(--color-primary);
+        }
+
+        .placeholder-section h3 {
+            color: var(--color-secondary);
+        }
+
+        /* --- ARABIC TOGGLE --- */
+        .lang-switch {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+
+        .lang-btn {
+            background: rgba(255,255,255,0.92);
+            border: 2px solid var(--color-secondary); /* Red Border */
+            color: var(--color-secondary);
+            padding: 8px 16px;
+            font-family: var(--font-tech);
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn:hover {
+            background: var(--color-secondary);
+            color: white;
+        }
+
+        .hide-lang { display: none !important; }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--color-muted);
+            font-size: 0.9rem;
+            border-top: 4px solid var(--color-primary);
+        }
+
+        /* --- RESPONSIVE ADJUSTMENTS --- */
+        @media (min-width: 768px) {
+            /* Program List */
+            .program-header {
+                flex-direction: row;
+                align-items: center;
+            }
+            .program-item {
+                flex-direction: row;
+                align-items: center;
+            }
+            .film-name {
+                font-size: 2.2rem;
+                margin: 0 1rem;
+            }
+
+            /* Location Cards */
+            .location-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            /* Detailed Programme Cards */
+            .film-card {
+                flex-direction: row;
+                align-items: flex-start;
+            }
+            .film-thumb {
+                width: 320px;
+                flex-shrink: 0;
+                margin-right: 2rem;
+            }
+            .film-info {
+                flex-grow: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ARABIC TOGGLE START -->
+    <nav class="lang-switch">
+        <a href="#" class="lang-btn" id="ar-link">AR</a>
+    </nav>
+    <!-- ARABIC TOGGLE END -->
+
+    <!-- VIDEO (CLEAN EMBED) -->
+    <div class="video-container">
+        <div style="padding:56.25% 0 0 0;position:relative;">
+            <iframe src="https://player.vimeo.com/video/1222945227?h=876cbead08&badge=0&autopause=0&player_id=0&app_id=58479&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="PCD 26 Final 2"></iframe>
+        </div>
+    </div>
+
+    <!-- TITLE BLOCK -->
+    <div class="title-block">
+        <h1 class="hero-title">Palestine Cinema Days<br>Around The World - Skien</h1>
+        <div class="hero-subtitle">Stories Beyond Erasure</div>
+    </div>
+
+    <!-- DATE & LOCATION -->
+    <div class="details-bar">
+        <div class="container details-grid">
+            <span>📅 Monday, 2 Nov 2026</span>
+            <span>📍 Skien, Norway</span>
+            <span>⏰ Doors Open 18:00</span>
+        </div>
+    </div>
+
+    <!-- QUICK PROGRAM -->
+    <section id="program">
+        <div class="container">
+            <h2>The Program</h2>
+            <ul class="program-list">
+                <li class="program-item">
+                    <span class="film-time">18:30</span>
+                    <span class="film-name">Opening Night: Kassem Hawal</span>
+                    <!-- Anchor Link -->
+                    <a href="#locations" class="film-location-link">Main Hall</a>
+                </li>
+                <li class="program-item">
+                    <span class="film-time">20:45</span>
+                    <span class="film-name">Documentary: Mohammad Malas</span>
+                    <!-- Anchor Link -->
+                    <a href="#locations" class="film-location-link">Studio B</a>
+                </li>
+                <li class="program-item">
+                    <span class="film-time">22:00</span>
+                    <span class="film-name">Shorts Block: War & Dreams</span>
+                    <a href="#locations" class="film-location-link">Main Hall</a>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- FEATURE IMAGE + ABOUT -->
+    <section id="about">
+        <div class="container about-content">
+            <img src="pcd_skien_web.png" alt="Palestine Cinema Days Skien" class="feature-image">
+            <h2>About This Instance</h2>
+            <p>
+                Palestine Cinema Days Around the World is a global platform that transcends borders to bring Palestinian stories to the forefront of the world’s conscience.
+                <br><br>
+                Join us in Skien for this special screening on the 109th anniversary of the Balfour Declaration. We invite you to witness stories of resilience, memory, and hope.
+            </p>
+        </div>
+    </section>
+
+    <!-- LOCATIONS SECTION -->
+    <section id="locations">
+        <div class="container">
+            <h2>Locations</h2>
+            
+            <!-- Google Map -->
+            <div class="map-wrapper">
+                <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1d8zOagGunHITOZqtjM1RJJDokv2yQGo&ehbc=2E312F&noprof=1" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+
+            <!-- Location Cards -->
+            <div class="location-grid">
+                <!-- Location 1 -->
+                <div class="location-card">
+                    <img src="venue1.jpg" alt="Spriten Kunsthall" class="location-img">
+                    <div class="location-details">
+                        <h3 class="location-name">Spriten Kunsthall</h3>
+                        <p class="location-address">Kongsgata 10, 3717 Skien, Norway</p>
+                    </div>
+                </div>
+
+                <!-- Location 2 -->
+                <div class="location-card">
+                    <img src="venue2.jpg" alt="Venue 2" class="location-img">
+                    <div class="location-details">
+                        <h3 class="location-name">Studio B</h3>
+                        <p class="location-address">Storgata 25, 3717 Skien, Norway</p>
+                    </div>
+                </div>
+                
+                <!-- Copy-paste the block above to add more locations -->
+            </div>
+        </div>
+    </section>
+
+    <!-- DETAILED PROGRAMME -->
+    <section id="detailed-programme">
+        <div class="container">
+            <h2>Films & Details</h2>
+            <div class="programme-grid">
+                
+                <!-- Film Card 1 -->
+                <div class="film-card">
+                    <img src="film1.jpg" alt="Film Poster" class="film-thumb">
+                    <div class="film-info">
+                        <h3>Kassem Hawal</h3>
+                        <div class="film-meta">2025 | Drama | 77 min | Dir. Kassem Hawal</div>
+                        <a href="https://vimeo.com/example1" target="_blank" class="trailer-link">Watch Trailer ↗</a>
+                        <p class="film-synopsis">
+                            In her relentless pursuit of a memory that reinforces her sense of belonging, Areeb crosses paths with Ahmed, a parkour athlete in Gaza...
+                        </p>
+                        <p class="tech-text" style="margin-top:1rem;">Screening: 18:30 | Main Hall</p>
+                    </div>
+                </div>
+
+                <!-- Film Card 2 -->
+                <div class="film-card">
+                    <img src="film2.jpg" alt="Film Poster" class="film-thumb">
+                    <div class="film-info">
+                        <h3>Mohammad Malas</h3>
+                        <div class="film-meta">2024 | Documentary | 45 min | Dir. Mohammad Malas</div>
+                        <a href="https://vimeo.com/example2" target="_blank" class="trailer-link">Watch Trailer ↗</a>
+                        <p class="film-synopsis">
+                            A collection of interviews with Palestinian refugees in Lebanon during the civil war, interviewed by Malas about what dreams they saw...
+                        </p>
+                        <p class="tech-text" style="margin-top:1rem;">Screening: 20:45 | Studio B</p>
+                    </div>
+                </div>
+
+                <!-- Copy-paste the block above to add more films -->
+
+            </div>
+        </div>
+    </section>
+
+    <!-- DETAILED PROGRAM PLACEHOLDER -->
+    <section id="details-placeholder">
+        <div class="container">
+            <div class="placeholder-section">
+                <h3>More Films Coming Soon</h3>
+                <p class="tech-text">Full programme updates will be posted here.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        &copy; 2026 Palestine Cinema Days - Skien Instance
+    </footer>
+
+</body>
+</html>
