@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palestine Cinema Days - Skien</title>
+    
+    <!-- Google Fonts: Barlow, Barlow Condensed, Inconsolata, Alexandria -->
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@300;400;500;700&family=Inconsolata:wght@500&family=Alexandria:wght@400;700&display=swap");
+    </style>
+
+    <style>
+        /* --- RESET & VARIABLES --- */
+        :root {
+            --color-bg: #ffffff;
+            --color-text: #1a1a1a;
+            --color-accent: #6d4aff; /* Proton Purple / Festival Accent */
+            --color-muted: #666666;
+            --font-heading: 'Barlow Condensed', sans-serif;
+            --font-body: 'Barlow', sans-serif;
+            --font-tech: 'Inconsolata', monospace;
+            --font-ar: 'Alexandria', sans-serif;
+            --max-width: 1000px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3 {
+            font-family: var(--font-heading);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 900;
+        }
+
+        h1 { font-size: clamp(2rem, 5vw, 4rem); line-height: 1.1; margin-bottom: 0.5rem; }
+        h2 { font-size: clamp(1.5rem, 3vw, 2.5rem); margin-bottom: 1.5rem; border-left: 5px solid var(--color-accent); padding-left: 1rem; }
+        
+        p { margin-bottom: 1rem; font-size: 1.1rem; }
+        
+        .tech-text { font-family: var(--font-tech); font-weight: 500; color: var(--color-muted); }
+
+        /* --- LAYOUT UTILITIES --- */
+        .container {
+            width: 100%;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 4rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* --- HERO SECTION (VIDEO) --- */
+        .hero {
+            position: relative;
+            background: #000;
+            color: white;
+            padding-bottom: 2rem;
+            text-align: center;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .hero-title {
+            color: white;
+            margin-top: 1rem;
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-tech);
+            color: #ccc;
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+        }
+
+        /* --- DATE & LOCATION BAR --- */
+        .details-bar {
+            background-color: var(--color-accent);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .details-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            font-family: var(--font-tech);
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        /* --- PROGRAM LIST (QUICK) --- */
+        .program-list {
+            list-style: none;
+            margin-top: 2rem;
+        }
+
+        .program-item {
+            display: flex;
+            flex-direction: column;
+            border-bottom: 1px solid #ddd;
+            padding: 1.5rem 0;
+        }
+
+        .program-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .film-time {
+            font-family: var(--font-tech);
+            color: var(--color-accent);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .film-name {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 700;
+            flex-grow: 1;
+        }
+
+        .film-location {
+            font-family: var(--font-body);
+            color: var(--color-muted);
+            font-style: italic;
+        }
+
+        /* --- ABOUT SECTION --- */
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        /* --- PLACEHOLDER FOR DETAILED PROGRAM --- */
+        .placeholder-section {
+            background-color: #f9f9f9;
+            padding: 3rem 2rem;
+            text-align: center;
+            border-radius: 8px;
+            margin-top: 2rem;
+            border: 2px dashed #ccc;
+        }
+
+        /* --- ARABIC TOGGLE --- */
+        .lang-switch {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+
+        .lang-btn {
+            background: rgba(255,255,255,0.9);
+            border: 2px solid var(--color-accent);
+            color: var(--color-accent);
+            padding: 8px 16px;
+            font-family: var(--font-tech);
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn:hover {
+            background: var(--color-accent);
+            color: white;
+        }
+
+        /* --- RESPONSIVE ADJUSTMENTS --- */
+        @media (min-width: 768px) {
+            .program-header {
+                flex-direction: row;
+                align-items: center;
+            }
+            .program-item {
+                flex-direction: row;
+                align-items: center;
+            }
+            .film-name {
+                font-size: 2.2rem;
+                margin: 0 1rem;
+            }
+        }
+
+        /* Helper to hide the AR button when ready */
+        .hide-lang { display: none !important; }
+    </style>
+</head>
+<body>
+
+    <!-- ARABIC TOGGLE START -->
+    <!-- To activate: Change href="#" to href="arabic.html" -->
+    <!-- To hide permanently: Add class "hide-lang" to the <a> tag below -->
+    <nav class="lang-switch">
+        <a href="#" class="lang-btn" id="ar-link">AR</a>
+    </nav>
+    <!-- ARABIC TOGGLE END -->
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="container">
+            <div class="video-wrapper">
+                <!-- Vimeo Embed: ID 1222945227 -->
+                <iframe 
+                    src="https://player.vimeo.com/video/1222945227?title=0&byline=0&portrait=0&autopause=0" 
+                    frameborder="0" 
+                    allow="autoplay; fullscreen; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+            
+            <h1 class="hero-title">Palestine Cinema Days<br>Around The World - Skien</h1>
+            <div class="hero-subtitle">Stories Beyond Erasure</div>
+        </div>
+    </section>
+
+    <!-- DATE & LOCATION -->
+    <div class="details-bar">
+        <div class="container details-grid">
+            <span>📅 Monday, 2 Nov 2026</span>
+            <span>📍 Skien, Norway</span>
+            <span>⏰ Doors Open 18:00</span>
+        </div>
+    </div>
+
+    <!-- QUICK PROGRAM -->
+    <section id="program">
+        <div class="container">
+            <h2>The Program</h2>
+            <ul class="program-list">
+                <li class="program-item">
+                    <span class="film-time">18:30</span>
+                    <span class="film-name">Opening Night: Kassem Hawal</span>
+                    <span class="film-location">Main Hall</span>
+                </li>
+                <li class="program-item">
+                    <span class="film-time">20:45</span>
+                    <span class="film-name">Documentary: Mohammad Malas</span>
+                    <span class="film-location">Studio B</span>
+                </li>
+                <li class="program-item">
+                    <span class="film-time">22:00</span>
+                    <span class="film-name">Shorts Block: War & Dreams</span>
+                    <span class="film-location">Main Hall</span>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about">
+        <div class="container about-content">
+            <h2>About This Instance</h2>
+            <p>
+                Palestine Cinema Days Around the World is a global platform that transcends borders to bring Palestinian stories to the forefront of the world’s conscience. 
+                <br><br>
+                Join us in Skien for this special screening on the 109th anniversary of the Balfour Declaration. We invite you to witness stories of resilience, memory, and hope.
+            </p>
+        </div>
+    </section>
+
+    <!-- DETAILED PROGRAM PLACEHOLDER -->
+    <section id="details-placeholder">
+        <div class="container">
+            <div class="placeholder-section">
+                <h3>Detailed Program & Trailers</h3>
+                <p class="tech-text">Coming Soon...</p>
+                <p style="margin-top:1rem; color:#888;">
+                    Full film posters, synopses, and direct trailer links will be available here soon.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer style="text-align:center; padding: 2rem; color: #888; font-size: 0.9rem;">
+        &copy; 2026 Palestine Cinema Days - Skien Instance
+    </footer>
+
+</body>
+</html>
