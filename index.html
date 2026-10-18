@@ -52,11 +52,11 @@
         }
 
         h1 { font-size: clamp(2rem, 5vw, 4rem); line-height: 1.1; margin-bottom: 0.5rem; }
-        
+
         h2 {
             font-size: clamp(1.5rem, 3vw, 2.5rem);
             margin-bottom: 1.5rem;
-            border-left: 5px solid var(--color-primary); /* Gold Border */
+            border-left: 5px solid var(--color-primary);
             padding-left: 1rem;
             display: inline-block;
         }
@@ -108,8 +108,8 @@
 
         /* --- DATE & LOCATION BAR --- */
         .details-bar {
-            background-color: var(--color-primary); /* Gold Background */
-            color: #1a1a1a; /* Dark text for contrast on gold */
+            background-color: var(--color-primary);
+            color: #1a1a1a;
             padding: 2rem 0;
             text-align: center;
         }
@@ -152,7 +152,7 @@
 
         .film-time {
             font-family: var(--font-tech);
-            color: var(--color-secondary); /* Red Time */
+            color: var(--color-secondary);
             font-weight: bold;
             font-size: 1.2rem;
         }
@@ -164,6 +164,17 @@
             flex-grow: 1;
         }
 
+        /* Anchor link styled to look like plain heading text */
+        .film-name a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .film-name a:hover {
+            color: var(--color-secondary);
+        }
+
         .film-location-link {
             font-family: var(--font-body);
             color: var(--color-muted);
@@ -172,7 +183,7 @@
             cursor: pointer;
             transition: color 0.2s;
         }
-        
+
         .film-location-link:hover {
             color: var(--color-secondary);
         }
@@ -264,6 +275,7 @@
             gap: 1.5rem;
             padding-bottom: 2rem;
             border-bottom: 1px solid #eee;
+            scroll-margin-top: 2rem; /* Prevents anchor jump flush to viewport top */
         }
 
         .film-thumb {
@@ -331,7 +343,7 @@
 
         .lang-btn {
             background: rgba(255,255,255,0.92);
-            border: 2px solid var(--color-secondary); /* Red Border */
+            border: 2px solid var(--color-secondary);
             color: var(--color-secondary);
             padding: 8px 16px;
             font-family: var(--font-tech);
@@ -359,7 +371,6 @@
 
         /* --- RESPONSIVE ADJUSTMENTS --- */
         @media (min-width: 768px) {
-            /* Program List */
             .program-header {
                 flex-direction: row;
                 align-items: center;
@@ -373,12 +384,10 @@
                 margin: 0 1rem;
             }
 
-            /* Location Cards */
             .location-grid {
                 grid-template-columns: 1fr 1fr;
             }
 
-            /* Detailed Programme Cards */
             .film-card {
                 flex-direction: row;
                 align-items: flex-start;
@@ -420,7 +429,7 @@
         <div class="container details-grid">
             <span>📅 Monday, 2 Nov 2026</span>
             <span>📍 Skien, Norway</span>
-            <span>⏰ Doors Open 18:00</span>
+        
         </div>
     </div>
 
@@ -430,21 +439,24 @@
             <h2>The Program</h2>
             <ul class="program-list">
                 <li class="program-item">
-                    <span class="film-time">18:30</span>
-                    <span class="film-name">Opening Night: Kassem Hawal</span>
-                    <!-- Anchor Link -->
-                    <a href="#locations" class="film-location-link">Main Hall</a>
+                    <span class="film-time">14:00</span>
+                    <span class="film-name"><a href="#film-1">Boycott</a></span>
+                    <a href="#locations" class="film-location-link">Galleri HI10</a>
                 </li>
                 <li class="program-item">
-                    <span class="film-time">20:45</span>
-                    <span class="film-name">Documentary: Mohammad Malas</span>
-                    <!-- Anchor Link -->
-                    <a href="#locations" class="film-location-link">Studio B</a>
+                    <span class="film-time">16:00</span>
+                    <span class="film-name"><a href="#film-2">Foragers</a></span>
+                    <a href="#locations" class="film-location-link">Spriten Kunsthall</a>
                 </li>
                 <li class="program-item">
-                    <span class="film-time">22:00</span>
-                    <span class="film-name">Shorts Block: War & Dreams</span>
-                    <a href="#locations" class="film-location-link">Main Hall</a>
+                    <span class="film-time">18:00</span>
+                    <span class="film-name"><a href="#film-1">The Dream</a></span>
+                    <a href="#locations" class="film-location-link">Galleri HI10</a>
+                </li>
+                <li class="program-item">
+                    <span class="film-time">20:00</span>
+                    <span class="film-name"><a href="#film-2">With Hasan in Gaza</a></span>
+                    <a href="#locations" class="film-location-link">Spriten Kunsthall</a>
                 </li>
             </ul>
         </div>
@@ -454,9 +466,17 @@
     <section id="about">
         <div class="container about-content">
             <img src="pcd_skien_web.png" alt="Palestine Cinema Days Skien" class="feature-image">
-            <h2>About This Instance</h2>
+            <h2>Skien</h2>
             <p>
-                Palestine Cinema Days Around the World is a global platform that transcends borders to bring Palestinian stories to the forefront of the world’s conscience.
+                Cinema across borders. Stories beyond erasure. 
+
+/ Film over landegrenser. Historier som ikke kan utviskes.
+
+
+
+I 2023 måtte den palestinske filmfestivalen Palestine Cinema Days gå i eksil – til hele verden. Den 2. november 2026 vil den foregå i 78 land samtidig, og som i Houston, Dhaka, Napoli og Dar es Salaam, får vi i Skien mulighet til å oppleve Palestinsk filmkunst. 
+
+
                 <br><br>
                 Join us in Skien for this special screening on the 109th anniversary of the Balfour Declaration. We invite you to witness stories of resilience, memory, and hope.
             </p>
@@ -467,7 +487,7 @@
     <section id="locations">
         <div class="container">
             <h2>Locations</h2>
-            
+
             <!-- Google Map -->
             <div class="map-wrapper">
                 <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1d8zOagGunHITOZqtjM1RJJDokv2yQGo&ehbc=2E312F&noprof=1" allowfullscreen="" loading="lazy"></iframe>
@@ -492,7 +512,7 @@
                         <p class="location-address">Storgata 25, 3717 Skien, Norway</p>
                     </div>
                 </div>
-                
+
                 <!-- Copy-paste the block above to add more locations -->
             </div>
         </div>
@@ -503,14 +523,14 @@
         <div class="container">
             <h2>Films & Details</h2>
             <div class="programme-grid">
-                
+
                 <!-- Film Card 1 -->
-                <div class="film-card">
+                <div class="film-card" id="film-1">
                     <img src="film1.jpg" alt="Film Poster" class="film-thumb">
                     <div class="film-info">
                         <h3>Kassem Hawal</h3>
                         <div class="film-meta">2025 | Drama | 77 min | Dir. Kassem Hawal</div>
-                        <a href="https://vimeo.com/example1" target="_blank" class="trailer-link">Watch Trailer ↗</a>
+                        <a href="https://vimeo.com/example1" target="_blank" rel="noopener" class="trailer-link">Watch Trailer ↗</a>
                         <p class="film-synopsis">
                             In her relentless pursuit of a memory that reinforces her sense of belonging, Areeb crosses paths with Ahmed, a parkour athlete in Gaza...
                         </p>
@@ -519,16 +539,30 @@
                 </div>
 
                 <!-- Film Card 2 -->
-                <div class="film-card">
+                <div class="film-card" id="film-2">
                     <img src="film2.jpg" alt="Film Poster" class="film-thumb">
                     <div class="film-info">
-                        <h3>Mohammad Malas</h3>
+                        <h3>With Hasan in Gaza</h3>
                         <div class="film-meta">2024 | Documentary | 45 min | Dir. Mohammad Malas</div>
-                        <a href="https://vimeo.com/example2" target="_blank" class="trailer-link">Watch Trailer ↗</a>
+                        <a href="https://vimeo.com/example2" target="_blank" rel="noopener" class="trailer-link">Watch Trailer ↗</a>
                         <p class="film-synopsis">
                             A collection of interviews with Palestinian refugees in Lebanon during the civil war, interviewed by Malas about what dreams they saw...
                         </p>
                         <p class="tech-text" style="margin-top:1rem;">Screening: 20:45 | Studio B</p>
+                    </div>
+                </div>
+
+                <!-- Film Card 3 -->
+                <div class="film-card" id="film-3">
+                    <img src="film3.jpg" alt="Film Poster" class="film-thumb">
+                    <div class="film-info">
+                        <h3>Shorts Block: War & Dreams</h3>
+                        <div class="film-meta">2025 | Shorts | Various | Dir. Various</div>
+                        <a href="https://vimeo.com/example3" target="_blank" rel="noopener" class="trailer-link">Watch Trailer ↗</a>
+                        <p class="film-synopsis">
+                            A curated selection of short films exploring memory, displacement, and the quiet persistence of daily life.
+                        </p>
+                        <p class="tech-text" style="margin-top:1rem;">Screening: 22:00 | Main Hall</p>
                     </div>
                 </div>
 
