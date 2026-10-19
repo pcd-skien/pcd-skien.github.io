@@ -75,17 +75,14 @@
             color: var(--color-secondary);
         }
 
-        /* --- ARABIC TEXT HANDLING --- */
-        /* Standalone Arabic paragraph: RTL, right-aligned, Arabic font, looser leading */
         .ar-text {
             direction: rtl;
             text-align: right;
             font-family: var(--font-ar);
-            line-height: 1.9;
-            font-size: 1.05rem;
+            font-size: 0.95rem; /* Matches .film-synopsis exactly */
+            line-height: 1.7;   /* Tighter than 1.9 to reduce vertical bulk */
             color: #333;
-        }
-
+        }            
         /* Inline Arabic snippet inside LTR text */
         .ar-inline {
             font-family: var(--font-ar);
