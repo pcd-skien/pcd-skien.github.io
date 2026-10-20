@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palestine Cinema Days - Skien</title>
+
+    <!-- Google Fonts -->
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@300;400;500;700&family=Inconsolata:wght@500&family=Alexandria:wght@400;700&display=swap");
+    </style>
+
+    <style>
+        /* --- RESET & VARIABLES --- */
+        :root {
+            --color-bg: #ffffff;
+            --color-text: #1a1a1a;
+            --color-primary: #ffca00; /* Gold (Dominant) */
+            --color-secondary: #ef280b; /* Red (Accent) */
+            --color-muted: #666666;
+            --color-white: #ffffff;
+            --font-heading: 'Barlow Condensed', sans-serif;
+            --font-body: 'Barlow', sans-serif;
+            --font-tech: 'Inconsolata', monospace;
+            --font-ar: 'Alexandria', sans-serif;
+            --max-width: 1100px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3 {
+            font-family: var(--font-heading);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 900;
+        }
+
+        h1 { font-size: clamp(2rem, 5vw, 4rem); line-height: 1.1; margin-bottom: 0.5rem; }
+
+        h2 {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            margin-bottom: 1.5rem;
+            border-left: 5px solid var(--color-primary);
+            padding-left: 1rem;
+            display: inline-block;
+        }
+
+        p { margin-bottom: 1rem; font-size: 1.1rem; }
+
+        .tech-text {
+            font-family: var(--font-tech);
+            font-weight: 500;
+            color: var(--color-muted);
+        }
+
+        .tech-text-time {
+            font-family: var(--font-tech);
+            font-weight: 500;
+            color: var(--color-secondary);
+        }
+
+        /* --- ARABIC TEXT HANDLING --- */
+        /* General Arabic text: RTL, right-aligned, Alexandria font */
+        .ar-text {
+            direction: rtl;
+            text-align: right;
+            font-family: var(--font-ar);
+            font-weight: 100;
+            font-size: 1.05rem; /* Default size for About/Vindu */
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Specific override for Arabic in Film Cards: Smaller size */
+        .film-card .ar-text {
+            font-size: 0.85rem !important;
+            line-height: 1.5;
+        }
+
+        /* Inline Arabic snippet inside LTR text */
+        .ar-inline {
+            font-family: var(--font-ar);
+            font-size: 0.95em;
+        }
+
+        /* Small Arabic subtitle beneath a section heading */
+        .ar-heading {
+            display: block;
+            font-family: var(--font-ar);
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--color-muted);
+            text-transform: none;
+            letter-spacing: 0;
+            margin-top: 0.25rem;
+        }
+
+        /* --- LAYOUT UTILITIES --- */
+        .container {
+            width: 100%;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 4rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* --- VIDEO (CLEAN EMBED) --- */
+        .video-container {
+            width: 100%;
+            background: #000;
+            line-height: 0;
+        }
+
+        /* --- HERO SECTION (BACKGROUND IMAGE) --- */
+        .hero-section {
+            background-color: var(--color-secondary); /* Fallback red */
+            background-image: url('hero_banner.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            padding: 4rem 20px 2rem 20px; /* Top padding for spacing, bottom for overlap */
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-title {
+            color: var(--color-white);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-tech);
+            color: var(--color-white);
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+
+        /* --- DATE & LOCATION BAR --- */
+        .details-bar {
+            background-color: var(--color-primary);
+            color: #1a1a1a;
+            padding: 2rem 0;
+            text-align: center;
+            border-bottom: 4px solid var(--color-secondary); /* Red bottom border */
+            margin-top: -2rem; /* Pull up to overlap hero slightly if desired, or remove for gap */
+            position: relative;
+            z-index: 10;
+        }
+
+        .details-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            font-family: var(--font-tech);
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        /* --- PROGRAM LIST (QUICK) --- */
+        .program-list {
+            list-style: none;
+            margin-top: 2rem;
+        }
+
+        .program-item {
+            display: flex;
+            flex-direction: column;
+            border-bottom: 1px solid #ddd;
+            padding: 1.5rem 0;
+            transition: background 0.3s;
+        }
+
+        .program-item:hover {
+            background-color: #fcfcfc;
+        }
+
+        .program-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .film-time {
+            font-family: var(--font-tech);
+            color: var(--color-secondary);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .film-name {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 700;
+            flex-grow: 1;
+        }
+
+        /* Anchor link styled to look like plain heading text */
+        .film-name a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .film-name a:hover {
+            color: var(--color-secondary);
+        }
+
+        .film-location-link {
+            font-family: var(--font-body);
+            color: var(--color-muted);
+            font-style: italic;
+            text-decoration: underline;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .film-location-link:hover {
+            color: var(--color-secondary);
+        }
+
+        /* --- ABOUT SECTION --- */
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: left; /* English left aligned */
+        }
+
+        .about-bilingual {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .about-en {
+            text-align: left;
+        }
+
+        .about-ar {
+            text-align: right;
+            direction: rtl;
+        }
+
+        /* --- LOCATIONS SECTION --- */
+        .map-wrapper {
+            width: 100%;
+            height: 450px;
+            margin-bottom: 3rem;
+            border: 4px solid var(--color-primary);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .map-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .location-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .location-card {
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .location-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background-color: #eee;
+        }
+
+        .location-details {
+            padding: 1.5rem;
+        }
+
+        .location-name {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            color: var(--color-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .location-address {
+            font-family: var(--font-tech);
+            color: var(--color-muted);
+            font-size: 1rem;
+        }
+
+        /* --- DETAILED PROGRAMME (CARDS) --- */
+        .programme-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+
+        .film-card {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+            scroll-margin-top: 2rem;
+        }
+
+        .film-thumb {
+            width: 100%;
+            height: auto;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            background-color: #eee;
+        }
+
+        .film-info h3 {
+            font-size: 1.8rem;
+            color: var(--color-secondary);
+            margin-bottom: 0.2rem;
+        }
+
+        .film-meta {
+            font-family: var(--font-tech);
+            color: var(--color-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .trailer-link {
+            display: inline-block;
+            color: var(--color-primary);
+            font-weight: bold;
+            text-decoration: none;
+            border-bottom: 2px solid var(--color-primary);
+            margin-bottom: 1rem;
+            transition: all 0.2s;
+        }
+
+        .trailer-link:hover {
+            background-color: var(--color-secondary);
+            color: white;
+        }
+
+        .film-synopsis {
+            font-size: 1.05rem;
+            color: #333;
+            text-align: left;
+        }
+
+        /* --- SUB-SECTION HEADING (inside a section) --- */
+        .subsection-heading {
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* --- PLACEHOLDER --- */
+        .placeholder-section {
+            background-color: #fafafa;
+            padding: 3rem 2rem;
+            text-align: center;
+            border-radius: 8px;
+            margin-top: 2rem;
+            border: 2px dashed var(--color-primary);
+        }
+
+        .placeholder-section h3 {
+            color: var(--color-secondary);
+        }
+
+        /* --- ARABIC TOGGLE --- */
+        .lang-switch {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+
+        .lang-btn {
+            background: rgba(255,255,255,0.92);
+            border: 2px solid var(--color-secondary);
+            color: var(--color-secondary);
+            padding: 8px 16px;
+            font-family: var(--font-tech);
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn:hover {
+            background: var(--color-secondary);
+            color: white;
+        }
+
+        .hide-lang { display: none !important; }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--color-muted);
+            font-size: 0.9rem;
+            border-top: 4px solid var(--color-primary);
+        }
+
+        /* --- RESPONSIVE ADJUSTMENTS --- */
+        @media (min-width: 768px) {
+            .program-header {
+                flex-direction: row;
+                align-items: center;
+            }
+            .program-item {
+                flex-direction: row;
+                align-items: center;
+            }
+            .film-name {
+                font-size: 2.2rem;
+                margin: 0 1rem;
+            }
+
+            .location-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .film-card {
+                flex-direction: row;
+                align-items: flex-start;
+            }
+            .film-thumb {
+                width: 320px;
+                flex-shrink: 0;
+                margin-right: 2rem;
+            }
+            .film-info {
+                flex-grow: 1;
+            }
+
+            /* Bilingual About & Vindu side-by-side on desktop */
+            .about-bilingual, .vindu-bilingual {
+                flex-direction: row;
+                gap: 3rem;
+            }
+            .about-en, .about-ar, .vindu-en, .vindu-ar {
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ARABIC TOGGLE START
+    <nav class="lang-switch">
+        <a href="#" class="lang-btn" id="ar-link">AR</a>
+    </nav>
+    ARABIC TOGGLE END -->
+
+    <!-- HERO SECTION (Background Image + Title + Date) -->
+    <div class="hero-section">
+        <div class="container">
+            <h1 class="hero-title">Palestine Cinema Days<br>Around The World - Skien</h1>
+            <div class="hero-subtitle">Stories Beyond Erasure</div>
+        </div>
+    </div>
+
+    <!-- DATE & LOCATION BAR -->
+    <div class="details-bar">
+        <div class="container details-grid">
+            <span>Monday, 2 Nov 2026</span>
+            <span>Skien, Norway</span>
+        </div>
+    </div>
+
+    <!-- QUICK PROGRAM -->
+    <section id="program">
+        <div class="container">
+            <h2>Hovedprogram
+                <span class="ar-heading" dir="rtl" lang="ar">البرنامج الرئيسي</span>
+            </h2>
+            <ul class="program-list">
+                <li class="program-item">
+                    <span class="film-time">14:00</span>
+                    <span class="film-name"><a href="#film-3">Boycott <span dir="rtl" lang="ar" class="ar-inline">المقاطعة</span></a></span>
+                    <a href="#locations" class="film-location-link">HI10</a>
+                </li>
+                <li class="program-item">
+                    <span class="film-time">16:00</span>
+                    <span class="film-name"><a href="#film-1">Foragers <span dir="rtl" lang="ar" class="ar-inline">المتجولات</span></a></span>
+                    <a href="#locations" class="film-location-link">Spriten Kunsthall</a>
+                </li>
+                <li class="program-item">
+                    <span class="film-time">18:00</span>
+                    <span class="film-name"><a href="#film-4">The Dream <span dir="rtl" lang="ar" class="ar-inline">الحلم</span></a></span>
+                    <a href="#locations" class="film-location-link">HI10</a>
+                </li>
+                <li class="program-item">
+                    <span class="film-time">20:00</span>
+                    <span class="film-name"><a href="#film-2">With Hasan in Gaza <span dir="rtl" lang="ar" class="ar-inline">مع حسن في غزة</span></a></span>
+                    <a href="#locations" class="film-location-link">Spriten Kunsthall</a>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about">
+        <div class="container about-content">
+            <h2>International Festival
+                <span class="ar-heading" dir="rtl" lang="ar">نبذة عن المهرجان</span>
+            </h2>
+
+            <div class="about-bilingual">
+                <!-- English Text -->
+                <div class="about-en">
+                    <p>
+                        Cinema Across Borders. Stories Beyond Erasure.<br><br>
+                        We invite you to join the 4th edition of Palestine Cinema Days AROUND THE WORLD on November 2, 2026, the 109th anniversary of the Balfour Declaration.<br>
+                        Palestine Cinema Days Around the World is a global platform that transcends borders to bring Palestinian stories to the forefront of the world’s conscience.
+                    </p>
+                </div>
+
+                <!-- Arabic Text -->
+                <div class="about-ar">
+                    <p class="ar-text">
+                        أيام فلسطين السينمائية حول العالم<br>
+                        سينما تعبر الحدود.. وحكايات تتجاوز المحو..<br><br>
+                        هذا العام، تعبر “أيام فلسطين السينمائية حول العالم 2026" بنسخة الرابعة الحدود من جديد، حاملةً معها صوراً وذاكرةً ورواياتٍ ترفض الإخفاء. ففي الوقت الذي يزداد فيه تغييب فلسطين عن المشهد العالمي، تتحوّل السينما إلى مساحة تحفظ الحكاية من الصمت، وتمنح الصورة قدرتها على البقاء والمواجهة.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LOCATIONS SECTION -->
+    <section id="locations">
+        <div class="container">
+            <h2>Locations
+                <span class="ar-heading" dir="rtl" lang="ar">الأماكن</span>
+            </h2>
+
+            <!-- Google Map -->
+            <div class="map-wrapper">
+                <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1d8zOagGunHITOZqtjM1RJJDokv2yQGo&ehbc=2E312F&noprof=1" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+
+            <!-- Location Cards -->
+            <div class="location-grid">
+                <!-- Location 1 -->
+                <div class="location-card">
+                    <img src="venue1.webp" alt="Spriten Kunsthall" class="location-img">
+                    <div class="location-details">
+                        <h3 class="location-name">Spriten Kunsthall</h3>
+                        <p class="location-address">Tømmerkaia 19, 3732 Skien, Norway</p>
+                    </div>
+                </div>
+
+                <!-- Location 2 -->
+                <div class="location-card">
+                    <img src="venue2.jpg" alt="HI10" class="location-img">
+                    <div class="location-details">
+                        <h3 class="location-name">HI10</h3>
+                        <p class="location-address">Henrik Ibsens gate 10, 3724 Skien, Norway</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DETAILED PROGRAMME -->
+    <section id="detailed-programme">
+        <div class="container">
+            <h2>Filmer
+                <span class="ar-heading" dir="rtl" lang="ar">الأفلام</span>
+            </h2>
+            <div class="programme-grid">
+
+                <!-- Film Card 1 -->
+                <div class="film-card" id="film-1">
+                    <img src="film1.png" alt="Film Poster" class="film-thumb">
+                    <div class="film-info">
+                        <h3>Foragers</h3>
+                        <div class="film-meta">2025 | Dokumentar | 65 min | Dir. Jumana Manna</div>
+                        <a href="https://www.youtube.com/watch?v=d9Yt87_PIbc" target="_blank" rel="noopener" class="trailer-link">Trailer</a>
+                        <p class="film-synopsis">
+                            Foragers interweaves documentary and fiction to report on a searing conflict between the Israel Nature and Parks Authority and Palestinian foragers.
+                        </p>
+                        <a href="https://www.flp.ps/ar/node/2005" target="_blank" rel="noopener" class="trailer-link" style="border-color: var(--color-secondary); color: var(--color-secondary);">اقرأ المزيد بالعربية ↗</a>
+                        <p class="tech-text-time" style="margin-top:1rem;">16:00 | Spriten</p>
+                    </div>
+                </div>
+
+                <!-- Film Card 2 -->
+                <div class="film-card" id="film-2">
+                    <img src="film2.png" alt="Film Poster" class="film-thumb">
+                    <div class="film-info">
+                        <h3>With Hasan in Gaza | <span class="ar-inline" dir="rtl" lang="ar">مع حسن في غزة</span></h3>
+                        <div class="film-meta">2025 | Documentary | 106 min | Dir. Kamal Aljafari</div>
+                        <a href="https://youtu.be/dMFlKULw8R0?si=Lzu5AZL4stpZKBVZ" target="_blank" rel="noopener" class="trailer-link">Trailer</a>
+                        <p class="film-synopsis">
+                            Three MiniDV tapes of life in Gaza from 2001 were recently rediscovered. A search for a former prison mate from 1989 leads to an unexpected road trip from the north to the south of Gaza with Hasan, a local guide whose fate remains unknown.
+                        </p>
+                        <a href="https://www.flp.ps/ar/node/2005" target="_blank" rel="noopener" class="trailer-link" style="border-color: var(--color-secondary); color: var(--color-secondary);">اقرأ المزيد بالعربية ↗</a>
+                        <p class="tech-text-time" style="margin-top:1rem;">20:00 | Spriten</p>
+                    </div>
+                </div>
+
+                <!-- Film Card 3 -->
+                <div class="film-card" id="film-3">
+                    <img src="film3.png" alt="Film Poster" class="film-thumb">
+                    <div class="film-info">
+                        <h3>Boycott</h3>
+                        <div class="film-meta">2025 | Dokumentar | 73 min | Dir. Julia Bacha</div>
+                        <a href="https://www.youtube.com/watch?v=FAMAFyR7L9U" target="_blank" rel="noopener" class="trailer-link">Trailer</a>
+                        <p class="film-synopsis">
+                            As a wave of anti-boycott legislation has swept through the country, so has a counter-wave in defense of freedom of speech. Everyday Americans are challenging these laws for their constitutionality in a nation-wide battle likely to go all the way to the Supreme Court.
+                        </p>
+                        <a href="https://www.flp.ps/ar/node/2005" target="_blank" rel="noopener" class="trailer-link" style="border-color: var(--color-secondary); color: var(--color-secondary);">اقرأ المزيد بالعربية ↗</a>
+                        <p class="tech-text-time" style="margin-top:1rem;">14:00 | Hi10</p>
+                    </div>
+                </div>
+
+                <!-- Film Card 4 -->
+                <div class="film-card" id="film-4">
+                    <img src="film4.png" alt="Film Poster" class="film-thumb">
+                    <div class="film-info">
+                        <h3>The Dream</h3>
+                        <div class="film-meta">2025 | Dokumentar | 73 min | Dir. Mohammad Malas</div>
+                        <p class="film-synopsis">A collection of interviews with Palestinian refugees in Lebanon during the civil war, interviewed by Malas about what dreams they saw when they went to sleep.
+                        </p>
+                        <a href="https://www.flp.ps/ar/node/2005" target="_blank" rel="noopener" class="trailer-link" style="border-color: var(--color-secondary); color: var(--color-secondary);">اقرأ المزيد بالعربية ↗</a>
+                        <p class="tech-text-time" style="margin-top:1rem;">18:00 | Hi10</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VINDU SUB-SECTION -->
+            <h2 class="subsection-heading">Vindu
+                <span class="ar-heading" dir="rtl" lang="ar">نافذة</span>
+            </h2>
+
+            <div class="vindu-bilingual">
+                <div class="vindu-en">
+                    <p>
+                        <strong>Street Window Installation:</strong><br>
+                        Selected short films will be screened daily in the public window of HI10 throughout the festival period. Passersby can catch glimpses of Palestinian stories in the heart of Skien.
+                    </p>
+                </div>
+                <div class="vindu-ar">
+                    <p class="ar-text">
+                        <strong>عرض النافذة في الشارع:</strong><br>
+                        سيتم عرض أفلام قصيرة مختارة يومياً في نافذة HI10 العامة طوال فترة المهرجان. يمكن للمارة التقاط لمحات من القصص الفلسطينية في قلب سكين.
+                    </p>
+                </div>
+            </div>
+
+            <div class="programme-grid" style="margin-top: 3rem;">
+                <!-- Placeholder for Vindu Films (Optional) -->
+                <div class="film-card" id="film-5">
+                    <img src="filmx.png" alt="Film Poster" class="film-thumb">
+                    <div class="film-info">
+                        <h3>Tittel <span class="ar-inline" dir="rtl" lang="ar">العنوان بالعربية</span></h3>
+                        <div class="film-meta">20xx | Dokumentar | xx min | Dir. xx</div>
+                        <a href="https://www.youtube.com/watch?v=FAMAFyR7L9U" target="_blank" rel="noopener" class="trailer-link">Trailer</a>
+                        <p class="film-synopsis">Synopsis placeholder.</p>
+                        <p class="film-synopsis ar-text" dir="rtl" lang="ar">ملخص الفيلم هنا.</p>
+                        <p class="tech-text-time" style="margin-top:1rem;">Daily | HI10 Window</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SUPPORT SECTION -->
+    <section id="details-placeholder">
+        <div class="container">
+            <div class="placeholder-section">
+                <h3>Støtt Palestinakomiteen</h3>
+                <p class="tech-text">Vipps 111340</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        &copy; 2026 Palestine Cinema Days Around The World Skien
+    </footer>
+
+</body>
+</html>
